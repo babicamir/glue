@@ -81,7 +81,7 @@ jobs:
           terraform init \
             -backend-config="bucket=${{env.TERRAFORM_S3_BACKEND_CONFIG}}" \
             -backend-config="region=us-east-1" \
-            -backend-config="key=${{env.BRANCH_NAME}}-${{ matrix.folders_changed }}/terraform.tfstate"
+            -backend-config="key=${{env.BRANCH_NAME}}-glue-${{ matrix.folders_changed }}/terraform.tfstate"
       - name: Terraform plan
         run: |
           cd terraform 
