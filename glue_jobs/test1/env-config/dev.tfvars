@@ -12,7 +12,7 @@ glue-number-of-workers  = "1"
 glue-max-retries        = "0"
 glue-command-name       = "glueetl"
 glue-script_location    = "s3://solution-1-devops-us-east-1-647692764445/solution-1/glue/test1.py"
-
+glue-security-configuration = "default"
 glue-default-arguments = {
   "--job_language" = "python"
   "--enable_glue_datacatalog "= "true"
@@ -22,6 +22,15 @@ glue-default-arguments = {
   "--enable_metrics" = "true"
 }
  
+
+
+
+
+
+
+
+
+
 # subnet-ids              = ["subnet-08d33102bc2b457f4", "subnet-006281111003cc8ba", "subnet-0a2bb90b489c870f2"]
 # security-group-ids      = ["sg-0b95e3f66ee5a1189"]
 # architectures           = ["x86_64"]
