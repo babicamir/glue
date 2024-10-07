@@ -4,6 +4,7 @@ aws-region              = "us-east-1"
 project-name            = "solution-1"
 deployment-role         = "arn:aws:iam::647692764445:role/lambda-deployment"
 
+glue-description        = "Description"
 glue-role               = "arn:aws:iam::647692764445:role/glue"
 glue-version            = "4.0"
 glue-worker-type        = "G.1X"
@@ -11,12 +12,12 @@ glue-command-name       = "glueetl"
 glue-script_location    = "s3://solution-1-devops-us-east-1-647692764445/solution-1/glue/test1.py"
 
 glue-default-arguments = {
-  job_language = "python"
-  enable_glue_datacatalog = "true"
-  enable_continuous_cloudwatch_log = "true"
-  enable_continuous_log_filter = "true"
-  enable_spark_ui = "true"
-  enable_metrics = "true"
+  --job_language = "python"
+  --enable_glue_datacatalog = "true"
+  --enable_continuous_cloudwatch_log = "true"
+  --enable_continuous_log_filter = "true"
+  --enable_spark_ui = "true"
+  --enable_metrics = "true"
 }
  
 # subnet-ids              = ["subnet-08d33102bc2b457f4", "subnet-006281111003cc8ba", "subnet-0a2bb90b489c870f2"]
