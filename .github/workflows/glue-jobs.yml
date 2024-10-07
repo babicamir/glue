@@ -1,0 +1,90 @@
+name: Glue jobs
+on:
+  push:
+    branches:
+      - dev
+  #   paths:
+  #     - lambda_functions/**
+  # pull_request:
+  #   branches:
+  #     - qa
+  #     - uat
+  #     - main
+  #   paths:
+  #     - lambda_functions/**
+
+env:
+  # Setting an environment variable with the value of a configuration variable
+  TERRAFORM_S3_BACKEND_CONFIG: ${{ vars.TERRAFORM_S3_BACKEND_CONFIG }}
+
+jobs:
+  #1: get-changes:
+  get-changes:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out app repository
+      uses: actions/checkout@v4
+    - name: Check changed folders
+      id: changed-files
+      uses: tj-actions/changed-files@v45
+      with:
+        dir_names_max_depth: '1'
+        dir_names: true
+        json: "true"
+    - name: List all changed folders
+      id: list
+      run: |
+        for DIR in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          echo "$DIR was changed"
+        done
+        echo "folders_changed=${{ steps.changed-files.outputs.all_changed_files }}" >> "$GITHUB_OUTPUT"
+    outputs:
+      folders_changed: ${{ steps.list.outputs.folders_changed }}
+
+  #2: lambda-deploy    
+  glue-jobs-deploy-update:
+    needs: get-changes
+    runs-on: ubuntu-latest
+    env:
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
+    strategy:
+      matrix:
+        folders_changed: ${{fromJson(needs.get-changes.outputs.folders_changed)}}
+    steps:
+      - name: Configure AWS credentials
+        id: aws-credentials-config
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Check out app repository
+        uses: actions/checkout@v4
+
+      - name: Zip all files
+        id: zip
+        run: |
+          cd lambda_functions/${{ matrix.folders_changed }}
+          zip -r lambda.zip . -x "env-config/*"
+      - name: Check out terraform repository
+        uses: actions/checkout@v4
+        with:
+          repository: babicamir/terraform-glue 
+          path: terraform 
+      # - name: Terraform init
+      #   run: |
+      #     ls
+      #     cp lambda_functions/${{ matrix.folders_changed }}/lambda.zip  terraform/lambda.zip
+      #     cd terraform
+      #     ls
+      #     terraform init \
+      #       -backend-config="bucket=${{env.TERRAFORM_S3_BACKEND_CONFIG}}" \
+      #       -backend-config="region=us-east-1" \
+      #       -backend-config="key=${{env.BRANCH_NAME}}-${{ matrix.folders_changed }}/terraform.tfstate"
+      # - name: Terraform plan
+      #   run: |
+      #     cd terraform 
+      #     ls
+      #     terraform plan -var-file="../lambda_functions/${{ matrix.folders_changed }}/env-config/${{env.BRANCH_NAME}}.tfvars"
+      #     terraform apply -auto-approve -var-file="../lambda_functions/${{ matrix.folders_changed }}/env-config/${{env.BRANCH_NAME}}.tfvars"
+  
