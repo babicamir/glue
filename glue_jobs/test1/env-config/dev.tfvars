@@ -8,6 +8,8 @@ glue-description        = "Description"
 glue-role               = "arn:aws:iam::647692764445:role/glue"
 glue-version            = "4.0"
 glue-worker-type        = "G.1X"
+glue-number-of-workers  = "1"
+glue-max-retries        = "0"
 glue-command-name       = "glueetl"
 glue-script_location    = "s3://solution-1-devops-us-east-1-647692764445/solution-1/glue/test1.py"
 
