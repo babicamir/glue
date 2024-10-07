@@ -3,8 +3,8 @@ on:
   push:
     branches:
       - dev
-  #   paths:
-  #     - lambda_functions/**
+    paths:
+      - glue_jobs/**
   # pull_request:
   #   branches:
   #     - qa
@@ -30,6 +30,7 @@ jobs:
       with:
         dir_names_max_depth: '1'
         dir_names: true
+        path: "glue_jobs"
         json: "true"
     - name: List all changed folders
       id: list
@@ -64,7 +65,7 @@ jobs:
       - name: Zip all files
         id: zip
         run: |
-          cd lambda_functions/${{ matrix.folders_changed }}
+          cd glue_jobs/${{ matrix.folders_changed }}
           zip -r lambda.zip . -x "env-config/*"
       - name: Check out terraform repository
         uses: actions/checkout@v4
