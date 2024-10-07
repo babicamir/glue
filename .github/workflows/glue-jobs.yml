@@ -82,10 +82,10 @@ jobs:
             -backend-config="bucket=${{env.TERRAFORM_S3_BACKEND_CONFIG}}" \
             -backend-config="region=us-east-1" \
             -backend-config="key=${{env.BRANCH_NAME}}-${{ matrix.folders_changed }}/terraform.tfstate"
-      # - name: Terraform plan
-      #   run: |
-      #     cd terraform 
-      #     ls
-      #     terraform plan -var-file="../lambda_functions/${{ matrix.folders_changed }}/env-config/${{env.BRANCH_NAME}}.tfvars"
-      #     terraform apply -auto-approve -var-file="../lambda_functions/${{ matrix.folders_changed }}/env-config/${{env.BRANCH_NAME}}.tfvars"
+      - name: Terraform plan
+        run: |
+          cd terraform 
+          ls
+          terraform plan -var-file="../glue_jobs/${{ matrix.folders_changed }}/env-config/${{env.BRANCH_NAME}}.tfvars"
+          terraform apply -auto-approve -var-file="../glue_jobs/${{ matrix.folders_changed }}/env-config/${{env.BRANCH_NAME}}.tfvars"
   
