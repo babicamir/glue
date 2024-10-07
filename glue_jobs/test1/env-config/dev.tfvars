@@ -4,7 +4,7 @@ aws-region              = "us-east-1"
 project-name            = "solution-1"
 deployment-role         = "arn:aws:iam::647692764445:role/lambda-deployment"
 
-glue-role               = "arn:aws:iam::647692764445:role/service-role/test-lambda"
+glue-role               = "arn:aws:iam::647692764445:role/glue"
 glue-version            = "4.0"
 glue-worker-type        = "G.1X"
 glue-command-name       = "glueetl"
