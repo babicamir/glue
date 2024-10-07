@@ -2,13 +2,13 @@ name                    = "test2"
 env                     = "dev"
 aws-region              = "us-east-1"
 project-name            = "solution-1"
-deployment-role         = "arn:aws:iam::647692764445:role/lambda-deployment"        
+deployment-role         = "arn:aws:iam::647692764445:role/lambda-deployment"
+
 glue-role               = "arn:aws:iam::647692764445:role/service-role/test-lambda"
+glue-version            = "4.0"
+glue-worker-type        = "Z.2X"
+glue-command-name       = "glueray"
 glue-script_location    = "s3://solution-1-devops-us-east-1-647692764445/solution-1/glue/glue-script.zip"
-
-
-
- 
 
 
 
