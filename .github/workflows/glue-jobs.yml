@@ -66,22 +66,22 @@ jobs:
         id: zip
         run: |
           cd glue_jobs/${{ matrix.folders_changed }}
-          zip -r lambda.zip . -x "env-config/*"
+          zip -r glue-script.zip . -x "env-config/*"
       - name: Check out terraform repository
         uses: actions/checkout@v4
         with:
           repository: babicamir/terraform-glue 
           path: terraform 
-      # - name: Terraform init
-      #   run: |
-      #     ls
-      #     cp lambda_functions/${{ matrix.folders_changed }}/lambda.zip  terraform/lambda.zip
-      #     cd terraform
-      #     ls
-      #     terraform init \
-      #       -backend-config="bucket=${{env.TERRAFORM_S3_BACKEND_CONFIG}}" \
-      #       -backend-config="region=us-east-1" \
-      #       -backend-config="key=${{env.BRANCH_NAME}}-${{ matrix.folders_changed }}/terraform.tfstate"
+      - name: Terraform init
+        run: |
+          ls
+          cp glue_jobs/${{ matrix.folders_changed }}/glue-script.zip  terraform/glue-script.zip
+          cd terraform
+          ls
+          terraform init \
+            -backend-config="bucket=${{env.TERRAFORM_S3_BACKEND_CONFIG}}" \
+            -backend-config="region=us-east-1" \
+            -backend-config="key=${{env.BRANCH_NAME}}-${{ matrix.folders_changed }}/terraform.tfstate"
       # - name: Terraform plan
       #   run: |
       #     cd terraform 
