@@ -26,4 +26,4 @@ aws-lambda-event-source-dynamodb-stream-enabled = "true"
 aws-lambda-event-source-dynamodb-name = "rokolabs-terraform-state-locks-environments-config"
 
 
-   
+    
