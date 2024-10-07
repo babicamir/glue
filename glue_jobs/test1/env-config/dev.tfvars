@@ -12,12 +12,12 @@ glue-command-name       = "glueetl"
 glue-script_location    = "s3://solution-1-devops-us-east-1-647692764445/solution-1/glue/test1.py"
 
 glue-default-arguments = {
-  --job_language = "python"
-  --enable_glue_datacatalog = "true"
-  --enable_continuous_cloudwatch_log = "true"
-  --enable_continuous_log_filter = "true"
-  --enable_spark_ui = "true"
-  --enable_metrics = "true"
+  "--job_language" = "python"
+  "--enable_glue_datacatalog "= "true"
+  "--enable_continuous_cloudwatch_log" = "true"
+  "--enable_continuous_log_filter" = "true"
+  "--enable_spark_ui" = "true"
+  "--enable_metrics" = "true"
 }
  
 # subnet-ids              = ["subnet-08d33102bc2b457f4", "subnet-006281111003cc8ba", "subnet-0a2bb90b489c870f2"]
