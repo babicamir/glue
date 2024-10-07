@@ -11,7 +11,7 @@ glue-command-name       = "glueetl"
 glue-script_location    = "s3://solution-1-devops-us-east-1-647692764445/solution-1/glue/glue-script.zip"
 
 
-
+ 
 # subnet-ids              = ["subnet-08d33102bc2b457f4", "subnet-006281111003cc8ba", "subnet-0a2bb90b489c870f2"]
 # security-group-ids      = ["sg-0b95e3f66ee5a1189"]
 # architectures           = ["x86_64"]
