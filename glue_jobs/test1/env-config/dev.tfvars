@@ -8,7 +8,7 @@ glue-role               = "arn:aws:iam::647692764445:role/service-role/test-lamb
 glue-version            = "4.0"
 glue-worker-type        = "G.1X"
 glue-command-name       = "glueetl"
-glue-script_location    = "s3://solution-1-devops-us-east-1-647692764445/solution-1/glue/glue-script.zip"
+glue-script_location    = "s3://solution-1-devops-us-east-1-647692764445/solution-1/glue/test1.py"
 
 
  
