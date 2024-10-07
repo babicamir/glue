@@ -75,7 +75,7 @@ jobs:
       - name: Terraform init
         run: |
           ls
-          cp glue_jobs/${{ matrix.folders_changed }}/glue-script.zip  terraform/glue-script.zip
+          aws s3 cp glue_jobs/${{ matrix.folders_changed }}/glue-script.zip  s3://solution-1-devops-us-east-1-647692764445/solution-1/glue/glue-script.zip
           cd terraform
           ls
           terraform init \
