@@ -24,8 +24,8 @@ glue-default-arguments = {
   "--enable-spark-ui" = "true"
   "--enable-metrics" = "true"
   "--enable-observability-metrics" = "true"
-  "--region-name" = "us-east-1",
-  "--env-name" = "dev",
+  "--region-name" = "us-east-1"
+  "--env-name" = "dev"
   "--account-id" = "647692764445"
 }
 glue-tags = {
@@ -42,21 +42,8 @@ glue-triggers = {
     StartOnCreation = "false"
     Actions = {
         Timeout = "2880"
-        Arguments = 
-            {
-            "--env_name" = "${Ref} EnvironmentStage",
-            "--account_id" = "${Ref} AWS::AccountId",
-            "--S3_TEMP_PATH" = "application_support/snowflake_fx_pull/temp",
-            "--S3_QUERY_PATH" = "application_support/snowflake_fx_pull/query/query.sql",
-            "--S3_BUCKET" = "${Sub} mra-esg-bronze-${EnvironmentStage}-${AWS::Region}",
-            "--class" = "GlueApp",
-            "--OUTPUT_FILE_NAME" = "SF_REF_FX_RATE",
-            "--S3_ARCHIVE_PATH" = "application_support/snowflake_fx_pull/archive",
-            "--FORMAT" = "CSV",
-            "--S3_OUTPUT_BUCKET" = "${Sub} mra-esg-landing-${EnvironmentStage}-${AWS::Region}",
-            "--region_name" = "${Ref} AWS::Region",
-            "--CONNECTION_NAME" = "${Sub} mra-esg-sf-fx-devmsgc-factset-connection-${EnvironmentStage}",
-            "--JOB_NAME" = "${Sub} mra_esg_sf_pull_${EnvironmentStage}"
+        Arguments = {
+            "--FORMAT" = "CSV"
         } 
     }
   }
@@ -66,21 +53,8 @@ glue-triggers = {
     StartOnCreation = "false"
     Actions = {
         Timeout = "2880"
-        Arguments = 
-            {
-            "--env_name" = "${Ref} EnvironmentStage",
-            "--account_id" = "${Ref} AWS::AccountId",
-            "--S3_TEMP_PATH" = "application_support/snowflake_fx_pull/temp",
-            "--S3_QUERY_PATH" = "application_support/snowflake_fx_pull/query/query.sql",
-            "--S3_BUCKET" = "${Sub} mra-esg-bronze-${EnvironmentStage}-${AWS::Region}",
-            "--class" = "GlueApp",
-            "--OUTPUT_FILE_NAME" = "SF_REF_FX_RATE",
-            "--S3_ARCHIVE_PATH" = "application_support/snowflake_fx_pull/archive",
-            "--FORMAT" = "CSV",
-            "--S3_OUTPUT_BUCKET" = "${Sub} mra-esg-landing-${EnvironmentStage}-${AWS::Region}",
-            "--region_name" = "${Ref} AWS::Region",
-            "--CONNECTION_NAME" = "${Sub} mra-esg-sf-fx-devmsgc-factset-connection-${EnvironmentStage}",
-            "--JOB_NAME" = "${Sub} mra_esg_sf_pull_${EnvironmentStage}"
+        Arguments = {
+            "--FORMAT" = "CSV"
         } 
     }
   }
