@@ -35,7 +35,6 @@ glue-tags = {
 
 
 glue-triggers = {
-
   trigger1 = {
     Type = "SCHEDULED"
     Schedule = "cron(15 05 25 * ? *)"
@@ -58,7 +57,6 @@ glue-triggers = {
         } 
     }
   }
-
 }
 
 
