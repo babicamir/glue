@@ -4,13 +4,15 @@ on:
     branches:
       - dev
       - qa
+      - uat
+      - prd
     paths:
       - glue_jobs/**
-  # pull_request:
-  #   branches:
-  #     - qa
-  #     - uat
-  #     - main
+  pull_request:
+    branches:
+      - qa
+      - uat
+      - main
   #   paths:
   #     - lambda_functions/**
 
