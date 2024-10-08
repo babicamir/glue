@@ -3,8 +3,9 @@ on:
   push:
     branches:
       - dev
-  #   paths:
-  #     - lambda_functions/**
+      - qa
+    paths:
+      - glue_jobs/**
   # pull_request:
   #   branches:
   #     - qa
@@ -30,6 +31,7 @@ jobs:
       with:
         dir_names_max_depth: '1'
         dir_names: true
+        path: "glue_jobs"
         json: "true"
     - name: List all changed folders
       id: list
@@ -64,27 +66,27 @@ jobs:
       - name: Zip all files
         id: zip
         run: |
-          cd lambda_functions/${{ matrix.folders_changed }}
-          zip -r lambda.zip . -x "env-config/*"
+          cd glue_jobs/${{ matrix.folders_changed }}
+          zip -r glue-script.zip . -x "env-config/*"
       - name: Check out terraform repository
         uses: actions/checkout@v4
         with:
           repository: babicamir/terraform-glue 
           path: terraform 
-      # - name: Terraform init
-      #   run: |
-      #     ls
-      #     cp lambda_functions/${{ matrix.folders_changed }}/lambda.zip  terraform/lambda.zip
-      #     cd terraform
-      #     ls
-      #     terraform init \
-      #       -backend-config="bucket=${{env.TERRAFORM_S3_BACKEND_CONFIG}}" \
-      #       -backend-config="region=us-east-1" \
-      #       -backend-config="key=${{env.BRANCH_NAME}}-${{ matrix.folders_changed }}/terraform.tfstate"
-      # - name: Terraform plan
-      #   run: |
-      #     cd terraform 
-      #     ls
-      #     terraform plan -var-file="../lambda_functions/${{ matrix.folders_changed }}/env-config/${{env.BRANCH_NAME}}.tfvars"
-      #     terraform apply -auto-approve -var-file="../lambda_functions/${{ matrix.folders_changed }}/env-config/${{env.BRANCH_NAME}}.tfvars"
+      - name: Terraform init
+        run: |
+          ls
+          aws s3 cp glue_jobs/${{ matrix.folders_changed }}/${{ matrix.folders_changed }}.py  s3://solution-1-devops-us-east-1-647692764445/solution-1/glue/${{ matrix.folders_changed }}.py
+          cd terraform
+          ls
+          terraform init \
+            -backend-config="bucket=${{env.TERRAFORM_S3_BACKEND_CONFIG}}" \
+            -backend-config="region=us-east-1" \
+            -backend-config="key=${{env.BRANCH_NAME}}-glue-${{ matrix.folders_changed }}/terraform.tfstate"
+      - name: Terraform plan
+        run: |
+          cd terraform 
+          ls
+          terraform plan -var-file="../glue_jobs/${{ matrix.folders_changed }}/env-config/${{env.BRANCH_NAME}}.tfvars"
+          terraform apply -auto-approve -var-file="../glue_jobs/${{ matrix.folders_changed }}/env-config/${{env.BRANCH_NAME}}.tfvars"
   
