@@ -1,4 +1,4 @@
-name                        = "test1"
+name                        = "test2"
 env                         = "dev"
 aws-region                  = "us-east-1"
 project-name                = "solution-1"
@@ -12,7 +12,7 @@ glue-max-retries            = "0"
 glue-max-concurrent-runs    = "1" #default
 glue-timeout                = "2880" #default
 glue-command-name           = "glueetl"
-glue-script_location        = "s3://solution-1-devops-us-east-1-647692764445/solution-1/glue/test1.py"
+glue-script_location        = "s3://solution-1-devops-us-east-1-647692764445/solution-1/glue/test2.py"
 glue-security-configuration = "default"
 glue-default-arguments = {
   "--job-language" = "python"
