@@ -1,5 +1,5 @@
 name                        = "test1"
-env                         = "dev"
+env                         = "uat"
 aws-region                  = "us-east-1"
 project-name                = "solution-1"
 deployment-role             = "arn:aws:iam::647692764445:role/lambda-deployment"
@@ -25,7 +25,7 @@ glue-default-arguments = {
   "--enable-metrics" = "true"
   "--enable-observability-metrics" = "true"
   "--region-name" = "us-east-1"
-  "--env-name" = "dev"
+  "--env-name" = "uat"
   "--account-id" = "647692764445"
 }
 glue-tags = {
@@ -55,4 +55,4 @@ glue-triggers = {
         } 
     }
   }
-} 
+}
