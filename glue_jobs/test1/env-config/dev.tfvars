@@ -15,16 +15,17 @@ glue-command-name           = "glueetl"
 glue-script_location        = "s3://solution-1-devops-us-east-1-647692764445/solution-1/glue/test1.py"
 glue-security-configuration = "default"
 glue-default-arguments = {
-  "--job_language" = "python"
-  "--enable_glue_datacatalog "= "true"
-  "--enable_continuous_cloudwatch_log" = "true"
-  "--enable_continuous_log_filter" = "true"
+  "--job-language" = "python"
+  "--enable-glue-datacatalog "= "true"
+  "--enable-continuous-cloudwatch-log" = "true"
+  "--enable-job-insights" = "true"
+  "--enable-continuous-log-filter" = "true"
   "--job-bookmark-option" = "job-bookmark-disable"
-  "--enable_spark_ui" = "true"
-  "--enable_metrics" = "true"
-  "--region_name" = "us-east-1",
-  "--env_name" = "dev",
-  "--account_id" = "647692764445"
+  "--enable-spark-ui" = "true"
+  "--enable-metrics" = "true"
+  "--region-name" = "us-east-1",
+  "--env-name" = "dev",
+  "--account-id" = "647692764445"
 }
 
 
