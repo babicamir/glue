@@ -39,7 +39,6 @@ glue-triggers = {
     StartOnCreation = "false"
     Actions = {
         Timeout = "2880"
-        SecurityConfiguration = "default"
         Arguments = {
             "--FORMAT" = "CSV"
         } 
@@ -51,7 +50,6 @@ glue-triggers = {
     StartOnCreation = "false"
     Actions = {
         Timeout = "2880"
-        SecurityConfiguration = "default"
         Arguments = {
             "--FORMAT" = "CSV"
         } 
