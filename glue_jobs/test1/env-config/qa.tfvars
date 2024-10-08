@@ -1,4 +1,4 @@
-name                        = "test2"
+name                        = "test1"
 env                         = "qa"
 aws-region                  = "us-east-1"
 project-name                = "solution-1"
