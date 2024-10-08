@@ -23,12 +23,15 @@ glue-default-arguments = {
   "--job-bookmark-option" = "job-bookmark-disable"
   "--enable-spark-ui" = "true"
   "--enable-metrics" = "true"
+  "--enable-observability-metrics" = "true"
   "--region-name" = "us-east-1",
   "--env-name" = "dev",
   "--account-id" = "647692764445"
 }
-
-
+glue-tags = {
+  AccountId = "647692764445"
+  CostCategory = "glue"
+}
 
 
 
