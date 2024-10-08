@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - dev
+      - qa
     paths:
       - glue_jobs/**
   # pull_request:
