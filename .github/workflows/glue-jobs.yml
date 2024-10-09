@@ -5,7 +5,7 @@ on:
       - dev
       - qa
       - uat
-      - prd
+      - main
     paths:
       - glue_jobs/**
   pull_request:
