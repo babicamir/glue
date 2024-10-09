@@ -15,10 +15,12 @@ on:
       - main
     paths:
       - glue_jobs/**
+      - common/**
 
 env:
   # Setting an environment variable with the value of a configuration variable
   TERRAFORM_S3_BACKEND_CONFIG: ${{ vars.TERRAFORM_S3_BACKEND_CONFIG }}
+  DEVOPS_S3_BUCKET: "solution-1-devops-us-east-1-647692764445"
 
 jobs:
   #1: get-changes:
@@ -44,6 +46,8 @@ jobs:
         echo "folders_changed=${{ steps.changed-files.outputs.all_changed_files }}" >> "$GITHUB_OUTPUT"
     outputs:
       folders_changed: ${{ steps.list.outputs.folders_changed }}
+
+
 
   #2: lambda-deploy    
   glue-jobs-deploy-update:
@@ -75,10 +79,14 @@ jobs:
         with:
           repository: babicamir/terraform-glue 
           path: terraform 
+      - name: Rename BRANCH_NAME if main
+        if: env.BRANCH_NAME == 'main'
+        run: echo "BRANCH_NAME=prd" >> $GITHUB_ENV
       - name: Terraform init
         run: |
           ls
-          aws s3 cp glue_jobs/${{ matrix.folders_changed }}/${{ matrix.folders_changed }}.py  s3://solution-1-devops-us-east-1-647692764445/solution-1/glue/${{ matrix.folders_changed }}.py
+          aws s3 cp common  s3://${{env.DEVOPS_S3_BUCKET}}/solution-1/glue/common --recursive
+          aws s3 cp glue_jobs/${{ matrix.folders_changed }}/${{ matrix.folders_changed }}.py  s3://${{env.DEVOPS_S3_BUCKET}}/solution-1/glue/${{ matrix.folders_changed }}.py
           cd terraform
           ls
           terraform init \
