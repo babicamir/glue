@@ -47,6 +47,8 @@ jobs:
     outputs:
       folders_changed: ${{ steps.list.outputs.folders_changed }}
 
+
+
   #2: lambda-deploy    
   glue-jobs-deploy-update:
     needs: get-changes
@@ -77,6 +79,9 @@ jobs:
         with:
           repository: babicamir/terraform-glue 
           path: terraform 
+      - name: Rename BRANCH_NAME if main
+        if: env.BRANCH_NAME == 'main'
+        run: echo "BRANCH_NAME=prd" >> $GITHUB_ENV
       - name: Terraform init
         run: |
           ls
