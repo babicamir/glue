@@ -3,19 +3,24 @@ on:
   push:
     branches:
       - dev
-  #   paths:
-  #     - lambda_functions/**
-  # pull_request:
-  #   branches:
-  #     - qa
-  #     - uat
-  #     - main
-  #   paths:
-  #     - lambda_functions/**
+      - qa
+      - uat
+      - prd
+    paths:
+      - glue_jobs/**
+  pull_request:
+    branches:
+      - qa
+      - uat
+      - main
+    paths:
+      - glue_jobs/**
+      - common/**
 
 env:
   # Setting an environment variable with the value of a configuration variable
   TERRAFORM_S3_BACKEND_CONFIG: ${{ vars.TERRAFORM_S3_BACKEND_CONFIG }}
+  DEVOPS_S3_BUCKET: "solution-1-devops-us-east-1-647692764445"
 
 jobs:
   #1: get-changes:
@@ -30,6 +35,7 @@ jobs:
       with:
         dir_names_max_depth: '1'
         dir_names: true
+        path: "glue_jobs"
         json: "true"
     - name: List all changed folders
       id: list
@@ -40,6 +46,8 @@ jobs:
         echo "folders_changed=${{ steps.changed-files.outputs.all_changed_files }}" >> "$GITHUB_OUTPUT"
     outputs:
       folders_changed: ${{ steps.list.outputs.folders_changed }}
+
+
 
   #2: lambda-deploy    
   glue-jobs-deploy-update:
@@ -64,27 +72,31 @@ jobs:
       - name: Zip all files
         id: zip
         run: |
-          cd lambda_functions/${{ matrix.folders_changed }}
-          zip -r lambda.zip . -x "env-config/*"
+          cd glue_jobs/${{ matrix.folders_changed }}
+          zip -r glue-script.zip . -x "env-config/*"
       - name: Check out terraform repository
         uses: actions/checkout@v4
         with:
           repository: babicamir/terraform-glue 
           path: terraform 
-      # - name: Terraform init
-      #   run: |
-      #     ls
-      #     cp lambda_functions/${{ matrix.folders_changed }}/lambda.zip  terraform/lambda.zip
-      #     cd terraform
-      #     ls
-      #     terraform init \
-      #       -backend-config="bucket=${{env.TERRAFORM_S3_BACKEND_CONFIG}}" \
-      #       -backend-config="region=us-east-1" \
-      #       -backend-config="key=${{env.BRANCH_NAME}}-${{ matrix.folders_changed }}/terraform.tfstate"
-      # - name: Terraform plan
-      #   run: |
-      #     cd terraform 
-      #     ls
-      #     terraform plan -var-file="../lambda_functions/${{ matrix.folders_changed }}/env-config/${{env.BRANCH_NAME}}.tfvars"
-      #     terraform apply -auto-approve -var-file="../lambda_functions/${{ matrix.folders_changed }}/env-config/${{env.BRANCH_NAME}}.tfvars"
+      - name: Rename BRANCH_NAME if main
+        if: env.BRANCH_NAME == 'main'
+        run: echo "BRANCH_NAME=prd" >> $GITHUB_ENV
+      - name: Terraform init
+        run: |
+          ls
+          aws s3 cp common  s3://${{env.DEVOPS_S3_BUCKET}}/solution-1/glue/common --recursive
+          aws s3 cp glue_jobs/${{ matrix.folders_changed }}/${{ matrix.folders_changed }}.py  s3://${{env.DEVOPS_S3_BUCKET}}/solution-1/glue/${{ matrix.folders_changed }}.py
+          cd terraform
+          ls
+          terraform init \
+            -backend-config="bucket=${{env.TERRAFORM_S3_BACKEND_CONFIG}}" \
+            -backend-config="region=us-east-1" \
+            -backend-config="key=${{env.BRANCH_NAME}}-glue-${{ matrix.folders_changed }}/terraform.tfstate"
+      - name: Terraform plan
+        run: |
+          cd terraform 
+          ls
+          terraform plan -var-file="../glue_jobs/${{ matrix.folders_changed }}/env-config/${{env.BRANCH_NAME}}.tfvars"
+          terraform apply -auto-approve -var-file="../glue_jobs/${{ matrix.folders_changed }}/env-config/${{env.BRANCH_NAME}}.tfvars"
   
