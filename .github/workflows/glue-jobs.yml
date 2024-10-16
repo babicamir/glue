@@ -108,8 +108,8 @@ jobs:
 
 
 
-          aws s3 cp glue_jobs/${{ matrix.folders_changed }}/${{ matrix.folders_changed }}.py  $glue-script-location
-          aws s3 cp common  $glue-common-folder-location --recursive
+          #aws s3 cp glue_jobs/${{ matrix.folders_changed }}/${{ matrix.folders_changed }}.py  $glue-script-location
+          #aws s3 cp common  $glue-common-folder-location --recursive
 
 
           cd terraform
