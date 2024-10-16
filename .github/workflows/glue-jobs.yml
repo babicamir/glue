@@ -104,7 +104,7 @@ jobs:
 
           # # Example usage of the exported variables
           echo "Variable1 name: $glue-script-location"
-          echo "Variable2 name: $glue-common-folder-location"
+          #echo "Variable2 name: $glue-common-folder-location"
 
 
 
