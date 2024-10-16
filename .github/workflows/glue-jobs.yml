@@ -102,8 +102,9 @@ jobs:
 
           # Example usage to get the value of 'alb_controller'
           alb_controller_enabled=$(get_tfvar_value "glue-script-location")
+          glue-common-folder-location=$(get_tfvar_value "glue-common-folder-location")
           echo "Variable1: $alb_controller_enabled"
-
+          echo "Variable1: $glue-common-folder-location"
 
           # #aws s3 cp glue_jobs/${{ matrix.folders_changed }}/${{ matrix.folders_changed }}.py  $glue-script-location
           # #aws s3 cp common  $glue-common-folder-location --recursive
