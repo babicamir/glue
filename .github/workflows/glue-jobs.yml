@@ -94,15 +94,19 @@ jobs:
           TFVARS_FILE="glue_jobs/${{ matrix.folders_changed }}/env-config/dev.tfvars"
 
           # Function to get the value of a specific key
-          get_tfvar_value() {
+          get-tfvar-glue-script-location() {
             local key=$1
             grep -A 1 "$key" $TFVARS_FILE | grep 'glue-script-location' | awk -F= '{print $2}' | tr -d ' {}'
+          }
+          get-tfvar-glue-common-folder-location() {
+            local key=$1
             grep -A 1 "$key" $TFVARS_FILE | grep 'glue-common-folder-location' | awk -F= '{print $2}' | tr -d ' {}'
           }
 
+
           # Example usage to get the value of 'alb_controller'
-          alb_controller_enabled=$(get_tfvar_value "glue-script-location")
-          glue-common-folder-location=$(get_tfvar_value "glue-common-folder-location")
+          alb_controller_enabled=$(get-tfvar-glue-script-location "glue-script-location")
+          glue-common-folder-location=$(get-tfvar-glue-common-folder-location "glue-common-folder-location")
           echo "Variable1: $alb_controller_enabled"
           echo "Variable1: $glue-common-folder-location"
 
