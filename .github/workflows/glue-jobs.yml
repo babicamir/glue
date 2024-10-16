@@ -90,6 +90,16 @@ jobs:
 
 
 
+          # Read the .tfvars file
+          TFVARS_FILE="glue_jobs/${{ matrix.folders_changed }}/env-config/dev.tfvars"
+
+          # # Parse the .tfvars file and export variables
+          # export $(grep -v '^#' $TFVARS_FILE | grep -v '^$' | awk -F= '{print $1"="$2}' | sed 's/ //g')
+
+          # # Example usage of the exported variables
+          # echo "Variable1 name: $name"
+
+
 
 
           cd terraform
