@@ -100,7 +100,7 @@ jobs:
           }
 
           glue-script-location=$(get_tfvar_value "glue-script-location")
-          glue-common-folder-location=$(get_tfvar_value "glue-common-folder-location")
+          #glue-common-folder-location=$(get_tfvar_value "glue-common-folder-location")
 
           # # Example usage of the exported variables
           echo "Variable1 name: $glue-script-location"
