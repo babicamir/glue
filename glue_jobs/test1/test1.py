@@ -106,7 +106,7 @@ profile_response = glue.start_job_run(
         '--partition_values_wqt': partition_values
     }
 )
-
+ 
 # Wait for execution to complete, timeout in 60*30=1800 secs
 logger.info('Waiting for execution')
 message = 'Error during Controller execution - Check logs logs logs logs logs logs?'
