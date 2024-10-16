@@ -93,23 +93,23 @@ jobs:
           # Read the .tfvars file
           TFVARS_FILE="glue_jobs/${{ matrix.folders_changed }}/env-config/dev.tfvars"
 
-          get_tfvar_value() {
-            local key=$1
-            grep -A 1 "$key" $TFVARS_FILE | grep 'glue-script-location' | awk -F= '{print $2}' | tr -d ' {}'
+          # get_tfvar_value() {
+          #   local key=$1
+          #   grep -A 1 "$key" $TFVARS_FILE | grep 'glue-script-location' | awk -F= '{print $2}' | tr -d ' {}'
 
-          }
+          # }
 
-          glue-script-location=$(get_tfvar_value "glue-script-location")
-          #glue-common-folder-location=$(get_tfvar_value "glue-common-folder-location")
+          # glue-script-location=$(get_tfvar_value "glue-script-location")
+          # #glue-common-folder-location=$(get_tfvar_value "glue-common-folder-location")
 
-          # # Example usage of the exported variables
-          echo "Variable1 name: $glue-script-location"
-          #echo "Variable2 name: $glue-common-folder-location"
+          # # # Example usage of the exported variables
+          # echo "Variable1 name: $glue-script-location"
+          # #echo "Variable2 name: $glue-common-folder-location"
 
 
 
-          #aws s3 cp glue_jobs/${{ matrix.folders_changed }}/${{ matrix.folders_changed }}.py  $glue-script-location
-          #aws s3 cp common  $glue-common-folder-location --recursive
+          # #aws s3 cp glue_jobs/${{ matrix.folders_changed }}/${{ matrix.folders_changed }}.py  $glue-script-location
+          # #aws s3 cp common  $glue-common-folder-location --recursive
 
 
           cd terraform
