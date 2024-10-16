@@ -101,12 +101,12 @@ jobs:
           alb_controller_enabled=$(get-tfvar-glue-script-location "glue-script-location")
           echo "Variable1: $alb_controller_enabled"
 
-          get-tfvar-name() {
+          get-tfvar-glue-common-folder-location() {
             local key=$1
-            grep -A 1 "$key" $TFVARS_FILE | grep 'name' | awk -F= '{print $2}' | tr -d ' {}'
+            grep -A 1 "$key" $TFVARS_FILE | grep 'glue-common-folder-location' | awk -F= '{print $2}' | tr -d ' {}'
           }
-          name=$(get-tfvar-name "name")
-          echo "Variable2: $name"
+          glue-common-folder-location=$(get-tfvar-name "glue-common-folder-location")
+          echo "Variable2: $glue-common-folder-location"
 
 
 
