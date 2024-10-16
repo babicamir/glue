@@ -101,6 +101,29 @@ jobs:
           alb_controller_enabled=$(get-tfvar-glue-script-location "glue-script-location")
           echo "Variable1: $alb_controller_enabled"
 
+          get-tfvar-name() {
+            local key=$1
+            grep -A 1 "$key" $TFVARS_FILE | grep 'name' | awk -F= '{print $2}' | tr -d ' {}'
+          }
+          name=$(get-tfvar-name "name")
+          echo "Variable2: $name"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
           # #aws s3 cp glue_jobs/${{ matrix.folders_changed }}/${{ matrix.folders_changed }}.py  $glue-script-location
           # #aws s3 cp common  $glue-common-folder-location --recursive
