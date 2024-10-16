@@ -96,11 +96,12 @@ jobs:
           get_tfvar_value() {
             local key=$1
             grep -A 1 "$key" $TFVARS_FILE | grep 'glue-script-location' | awk -F= '{print $2}' | tr -d ' {}'
+            grep -A 1 "$key" $TFVARS_FILE | grep 'glue-common-folder-location' | awk -F= '{print $2}' | tr -d ' {}'
 
           }
 
-          # glue-script-location=$(get_tfvar_value "glue-script-location")
-          # #glue-common-folder-location=$(get_tfvar_value "glue-common-folder-location")
+          glue-script-location=$(get_tfvar_value "glue-script-location")
+          glue-common-folder-location=$(get_tfvar_value "glue-common-folder-location")
 
           # # # Example usage of the exported variables
           # echo "Variable1 name: $glue-script-location"
@@ -123,7 +124,7 @@ jobs:
           cd terraform 
           terraform plan -var-file="../glue_jobs/${{ matrix.folders_changed }}/env-config/${{env.BRANCH_NAME}}.tfvars"
 
-      - name: Terraform plan and appl
+      - name: Terraform apply
         run: |
           cd terraform
           terraform apply -auto-approve -var-file="../glue_jobs/${{ matrix.folders_changed }}/env-config/${{env.BRANCH_NAME}}.tfvars"
