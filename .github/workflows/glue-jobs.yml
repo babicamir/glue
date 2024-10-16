@@ -90,9 +90,6 @@ jobs:
 
 
 
-
-          #!/bin/bash
-
           # Read the .tfvars file
           TFVARS_FILE="glue_jobs/${{ matrix.folders_changed }}/env-config/dev.tfvars"
 
