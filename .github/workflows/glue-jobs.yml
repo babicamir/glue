@@ -98,8 +98,10 @@ jobs:
             grep -A 1 "$key" $TFVARS_FILE | grep 'name' | awk -F= '{print $2}' | tr -d ' {}'
           }
 
+          alb_controller_enabled=$(get_tfvar_value "name")
+
           # # Example usage of the exported variables
-          # echo "Variable1 name: $name"
+          echo "Variable1 name: $alb_controller_enabled"
 
 
 
