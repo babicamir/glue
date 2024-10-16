@@ -98,11 +98,12 @@ jobs:
             grep -A 1 "$key" $TFVARS_FILE | grep 'glue-script-location' | awk -F= '{print $2}' | tr -d ' {}'
           }
 
+
           glue-script-location=$(get_tfvar_value "glue-script-location")
           # #glue-common-folder-location=$(get_tfvar_value "glue-common-folder-location")
 
           # # # # Example usage of the exported variables
-          #echo "Variable1 name: $glue-script-location"
+          echo "Variable1 name: $glue-script-location"
           # echo "Variable2 name: $glue-common-folder-location"
 
 
