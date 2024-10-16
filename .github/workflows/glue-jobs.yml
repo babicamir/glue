@@ -96,7 +96,8 @@ jobs:
           # Function to get the value of a specific key
           get_tfvar_value() {
             local key=$1
-            grep -A 1 "$key" $TFVARS_FILE | grep 'glue-script-location   ' | awk -F= '{print $2}' | tr -d ' {}'
+            grep -A 1 "$key" $TFVARS_FILE | grep 'glue-script-location' | awk -F= '{print $2}' | tr -d ' {}'
+            grep -A 1 "$key" $TFVARS_FILE | grep 'glue-common-folder-location' | awk -F= '{print $2}' | tr -d ' {}'
           }
 
           # Example usage to get the value of 'alb_controller'
