@@ -85,7 +85,7 @@ jobs:
       - name: Terraform init
         run: |
           ls
-          aws s3 cp common  s3://${{env.DEVOPS_S3_BUCKET}}/solution-1/glue/common --recursive
+          #aws s3 cp common  s3://${{env.DEVOPS_S3_BUCKET}}/solution-1/glue/common --recursive
           #aws s3 cp glue_jobs/${{ matrix.folders_changed }}/${{ matrix.folders_changed }}.py  s3://${{env.DEVOPS_S3_BUCKET}}/solution-1/glue/${{ matrix.folders_changed }}.py
 
 
