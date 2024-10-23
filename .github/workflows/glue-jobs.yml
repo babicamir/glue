@@ -98,8 +98,8 @@ jobs:
             local key=$1
             grep -A 1 "$key" $TFVARS_FILE | grep 'glue-script-location' | awk -F= '{print $2}' | tr -d ' {}'
           }
-          glue-script-location=$(get-tfvar-glue-script-location "glue-script-location")
-          echo "Variable1: $glue-script-location"
+          glue-script-location1=$(get-tfvar-glue-script-location "glue-script-location")
+          echo "Variable1: $glue-script-location1"
 
 
 
@@ -128,6 +128,7 @@ jobs:
 
 
           ls
+          cat glue_jobs/${{ matrix.folders_changed }}/${{ matrix.folders_changed }}.py
           aws s3 cp glue_jobs/${{ matrix.folders_changed }}/${{ matrix.folders_changed }}.py  $glue-script-location
           # #aws s3 cp common  $glue-common-folder-location --recursive
 
