@@ -104,12 +104,12 @@ jobs:
 
 
 
-          get-tfvar-glue-common-folder-location() {
-            local key=$1
-            grep -A 1 "$key" $TFVARS_FILE | grep 'glue-common-folder-location' | awk -F= '{print $2}' | tr -d ' {}'
-          }
-          glue-common-folder-location=$(get-tfvar-glue-common-folder-location "glue-common-folder-location")
-          #echo "Variable2: $glue-common-folder-location"
+          # get-tfvar-glue-common-folder-location() {
+          #   local key=$1
+          #   grep -A 1 "$key" $TFVARS_FILE | grep 'glue-common-folder-location' | awk -F= '{print $2}' | tr -d ' {}'
+          # }
+          # glue-common-folder-location=$(get-tfvar-glue-common-folder-location "glue-common-folder-location")
+          # #echo "Variable2: $glue-common-folder-location"
 
 
 
